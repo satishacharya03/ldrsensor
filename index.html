@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LDR Sensor Demonstration with Sun and Moon</title>
+
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .sky {
+        position: relative;
+        width: 100%;
+        height: 600px;
+        background: linear-gradient(to bottom, #cff, #6cf);
+        overflow: hidden;
+      }
+
+      .sun,
+      .moon {
+        position: absolute;
+        top: -50px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+      }
+
+      .sun {
+        background-color: #ff0;
+        box-shadow: 0 0 50px rgba(255, 204, 0, 0.7);
+        left: -50px;
+      }
+
+      .moon {
+        background-color: #fff;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+        right: -150px;
+      }
+
+      .street-light {
+        position: absolute;
+        top: 300px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 280px;
+        height: 300px;
+        border-radius: 20px;
+      }
+
+      .light-bulb {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: #ff0;
+        border-radius: 50%;
+        box-shadow: 0 0 20px #ff0;
+        opacity: 0;
+      }
+
+      .ldr {
+        height: 50px;
+        width: 100px;
+        position:absolute;
+        top: 40px;
+        left: 120px;
+      }
+    </style>
+  </head>
+
+<body>
+  <div class="sky">
+    <div class="sun"><img src="img/sun.jpg" alt=""></div>
+    <div class="moon"><img src="img/moon.jpg" alt=""></div>
+    <div class="street-light"><img src="img/streetlight-157598_1920.png" width="100%" height="300px">
+      <div class="light-bulb"></div>
+      <div class="ldr"><img src="img/ldr.png" height="30px" width="90px"></div>
+    </div>
+    
+  </div>
+  <script>
+    const sun = document.querySelector('.sun');
+    const moon = document.querySelector('.moon');
+    const lightBulb = document.querySelector('.light-bulb');
+    const sky = document.querySelector('.sky');
+    let isDay = true;
+
+    function toggleDayNight() {
+      if (isDay) {
+        // Simultaneous sunrise and moonrise in the east
+        sun.style.transition = 'left 2s, top 2s';
+        sun.style.left = '50%';
+        sun.style.top = '-200px';
+        moon.style.transition = 'right 2s, top 2s';
+        moon.style.right = '-300px'; // Adjust moon's position
+        moon.style.top = '50px'
+
+        // Turn on street light
+        lightBulb.style.opacity = '10';
+        lightBulb.style.backgroundColor = 'yellow';
+
+        // Change sky to night
+        sky.style.backgroundImage = 'url("img/night.png")';
+        sky.style.backgroundSize = '100% 100%';
+        isDay = false;
+      } else {
+        sun.style.transition = 'right 2s, top 2s';
+        sun.style.right = '-150px';
+        sun.style.top = '50px';
+        moon.style.transition = 'left 2s, top 2s';
+        moon.style.left = '20%'; // Adjust moon's position
+        moon.style.top = '-200px';
+
+        // Turn off street light
+        lightBulb.style.opacity = '';
+        lightBulb.style.backgroundColor = 'white';
+
+        // Change sky to day
+        sky.style.backgroundImage = 'url("img/day.png")';
+        sky.style.backgroundSize = '100% 100%';
+        isDay = true;
+      }
+    }
+
+    // Toggle day/night on click
+    document.body.addEventListener('click', toggleDayNight);
+  </script>
+</body>
+
+</html>
